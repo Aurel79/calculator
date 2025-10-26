@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simple Calculator</title>
+</head>
+<body>
+  <h1>Simple Calculator</h1>
+  <input id="a" placeholder="number a" />
+  <input id="b" placeholder="number b" />
+  <select id="op">
+    <option value="add">+</option>
+    <option value="sub">-</option>
+    <option value="mul">×</option>
+    <option value="div">÷</option>
+  </select>
+  <button id="go">Compute</button>
+  <div id="out"></div>
+
+  <script>
+    const btn = document.getElementById('go');
+    const out = document.getElementById('out');
+    btn.addEventListener('click', async () => {
+      const a = document.getElementById('a').value;
+      const b = document.getElementById('b').value;
+      const op = document.getElementById('op').value;
+      const res = await fetch(`/api/${op}?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`);
+      const data = await res.json();
+      if (res.ok) out.textContent = 'Result: ' + data.result;
+      else out.textContent = 'Error: ' + (data.error || 'unknown');
+    });
+  </script>
+</body>
+</html>
