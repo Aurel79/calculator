@@ -1,9 +1,0 @@
-version: '3.8'
-services:
-  calc-app:
-    build: .
-    ports:
-      - "8090:3000" # host:container — change host port if 8090 is in use
-    environment:
-      - PORT=3000
-    restart: unless-stopped
